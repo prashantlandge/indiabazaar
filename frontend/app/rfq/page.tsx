@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Send, CheckCircle2 } from "lucide-react";
@@ -9,7 +9,15 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { api } from "@/lib/api";
 
-export default function RFQPage() {
+export default function RFQPageWrapper() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-gray-50 dark:bg-gray-950" />}>
+      <RFQPage />
+    </Suspense>
+  );
+}
+
+function RFQPage() {
   const searchParams = useSearchParams();
   const supplierSlug = searchParams.get("supplier");
 

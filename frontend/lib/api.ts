@@ -70,6 +70,7 @@ export interface Supplier {
   state: string | null;
   pincode: string | null;
   country: string;
+  member_since: string | null;
   indiamart_verified: boolean;
   gst_verified: boolean;
   trust_seal: boolean;

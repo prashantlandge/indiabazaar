@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { Suspense, useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, SearchX } from "lucide-react";
@@ -13,7 +13,15 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { api, type SearchFilters as Filters, type SearchResponse } from "@/lib/api";
 import { useSearchStore } from "@/lib/store";
 
-export default function SearchPage() {
+export default function SearchPageWrapper() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-gray-50 dark:bg-gray-950" />}>
+      <SearchPage />
+    </Suspense>
+  );
+}
+
+function SearchPage() {
   const searchParams = useSearchParams();
   const q = searchParams.get("q") || "";
   const { setQuery } = useSearchStore();
